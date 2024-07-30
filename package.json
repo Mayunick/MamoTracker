@@ -1,0 +1,16 @@
+{
+  "name": "mamotracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "npx electronmon ."
+  },
+  "author": "mayunick",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^30.0.9",
+    "path-browserify": "^1.0.1"
+  }
+}

@@ -1,0 +1,20 @@
+body {
+    background-color: #393D41;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: #2657bb;
+}
+
+::-webkit-scrollbar {
+    width: 7.5px;
+}
+  
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #555;
+}  

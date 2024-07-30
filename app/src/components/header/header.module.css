@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    width: 100%;
+    background-color: #52736D;
+    height: 2rem;
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    display: flex;
+    z-index: 9999;
+}
+
+.top {
+    display: flex;
+    width: 100%;
+}
+
+.header a {
+    color: white;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    text-decoration: none; 
+}
+
+.header a:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
+                 0 0 20px rgba(255, 255, 255, 0.6), 
+                 0 0 30px rgba(255, 255, 255, 0.4);
+    text-decoration: none; 
+}
