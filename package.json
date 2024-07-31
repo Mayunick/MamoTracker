@@ -6,11 +6,26 @@
   "scripts": {
     "start": "electron .",
     "test": "npx electronmon .",
-    "build": "electron-packager . MamoTracker --platform=win32 --out=release --overwrite --icon=icon.ico"
+    "build": "npx electron-builder"
+  },
+  "build": {
+    "appId": "com.mayunick.mamotracker",
+    "productName": "MamoTracker",
+    "compression": "maximum",
+    "files": [
+      "*.js",
+      "app/build",
+      "!node_module"
+    ],
+    "win": {
+      "icon": "icon.ico",
+      "target": ["nsis"]
+    }
   },
   "author": "mayunick",
   "license": "MIT",
-  "dependencies": {
-    "electron": "^30.0.9"
+  "devDependencies": {
+    "electron": "^30.0.9",
+    "electron-builder": "^24.13.3"
   }
 }
