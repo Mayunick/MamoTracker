@@ -17,17 +17,19 @@ const MTrack = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      const savedFilePath = localStorage.getItem('jsonFilePath');
-      if (savedFilePath) {
-        const data = await window.electron.readSave(savedFilePath);
-        setJsonData(data);
-      }
-    })();
+    fetchSave();
   }, []);
+  
+  const fetchSave = async () => {
+    const savedFilePath = localStorage.getItem('jsonFilePath');
+    if (savedFilePath) {
+      const data = await window.electron.readSave(savedFilePath);
+      setJsonData(data);
+    }
+  };
 
   const handleContentChange = (e, entry, area) => {
-    const newVal = e.target.innerText;
+    const newVal = e.target.value;
     const updatedJsonData = { ...jsonData };
     const i = updatedJsonData.m.findIndex(item => item === entry);
     updatedJsonData.m[i][area] = newVal;
@@ -58,12 +60,9 @@ const MTrack = () => {
   }
 
   const handleCancel = async () => {
-    const savedFilePath = localStorage.getItem('jsonFilePath');
-    if (savedFilePath) {
-      const data = await window.electron.readSave(savedFilePath);
-      setJsonData(data);
-    }
+    await fetchSave();
     setIsEdit(false);
+    setDeleteCounter(0);
   }
 
   const handleSave = async () => {
@@ -109,10 +108,18 @@ const MTrack = () => {
             {jsonData ? (jsonData.m.map((entry, index) => (
               <>
                 <div key={index} className={styles.entry}>
-                  <div className={styles.tableContent} contentEditable={isEdit} suppressContentEditableWarning onBlur={(e) => handleContentChange(e, entry, 'name')}>{entry.name}</div>
-                  <div className={styles.tableContent} contentEditable={isEdit} suppressContentEditableWarning onBlur={(e) => handleContentChange(e, entry, 'volume')}>{entry.volume}</div>
-                  <div className={styles.tableContent} contentEditable={isEdit} suppressContentEditableWarning onBlur={(e) => handleContentChange(e, entry, 'link')}><a href="" onClick={(e) => {e.preventDefault(); openLink(entry.link);}}>{entry.link}</a></div>
-                  {isEdit && (<div className={styles.tableContent} style={{ textOverflow: 'clip', paddingRight: '30px' }}><button onClick={() => handleDelete(entry)}><FiTrash2 size={15}/></button></div>)}
+                  <div className={styles.tableContent}>
+                    {isEdit ? (<input type="text" value={entry.name} onChange={(e) => handleContentChange(e, entry, 'name')}/>) : (<div className={styles.tableText}>{entry.name}</div>)}
+                  </div>
+                  <div className={styles.tableContent}>
+                    {isEdit ? (<input type="number" value={entry.volume} onChange={(e) => handleContentChange(e, entry, 'volume')}/>) : (<div>{entry.volume}</div>)}
+                  </div>
+                  <div className={styles.tableContent}>
+                    {isEdit ? (<input type="url" value={entry.link} onChange={(e) => handleContentChange(e, entry, 'link')}/>) : (<a href="" onClick={(e) => { e.preventDefault(); openLink(entry.link); }}>Link</a>)}
+                  </div>
+                  {isEdit && (<div className={styles.tableContent} style={{ textOverflow: 'clip', paddingRight: '30px', marginLeft: '-15px' }}>
+                    <button onClick={() => handleDelete(entry)}><FiTrash2 size={15}/></button>
+                  </div>)}
                 </div>
               </>
             ))) : null}
