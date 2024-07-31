@@ -48,7 +48,7 @@
 }
 
 .sButton:hover {
-    background-color: #1A3635;
+    background-color: #2D504B;
 }
 
 .break {
@@ -99,7 +99,21 @@
     padding: 10px;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+}
+
+.tableContent input {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: inherit;
+    font-family: inherit;
+    outline: none;
+}
+
+.tableContent a:hover {
+    color: #839D9B;
 }
 
 .tableContent button {
@@ -110,6 +124,11 @@
 
 .tableContent button:hover {
     color: #d74c4c;
+}
+
+.tableText {
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .add {
