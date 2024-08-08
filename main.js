@@ -3,8 +3,16 @@ const url = require('url');
 const fs = require('fs');
 const path = require('path');
 
+const oneWindow = app.requestSingleInstanceLock();
+if (!oneWindow) {
+  app.quit();
+  return;
+}
+
+let mainWindow = null;
+
 function createMainWindow () {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     title: 'MamoTracker',
     width: 800,
     height: 600,
@@ -96,4 +104,11 @@ app.whenReady().then(() => {
   ipcMain.handle('revealSave', (event, filePath) => {
     shell.showItemInFolder(filePath);
   });
+});
+
+app.on('second-instance', (event, commandLine, workingDirectory) => {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
 });
